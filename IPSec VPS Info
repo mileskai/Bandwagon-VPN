@@ -1,0 +1,16 @@
+# Bandwago IPSec VPN Setting
+# Edit by Miles @DENG
+# Reference 
+
+# Reason for build this Notes
+  * to mark the process and conveniency myself for re-build the IPSec VPN
+
+# Server Bandwagon 10G VPS
+# Server info:
+  Hardisk Space: 10G SSD
+  RAM: 512M
+  CPU: Interl Xeon X1
+  Network: 1G
+  Location: California
+  Virtualization: OpenVZ
+  OS: Centos 6 x86_64
