@@ -14,3 +14,68 @@
   Location: California
   Virtualization: OpenVZ
   OS: Centos 6 x86_64
+
+
+
+
+
+/*
+16-02-05
+去年刚进IEC的时候 大懒猫 给我推荐了bandwagon VPS。买来用了这一年，觉得各方面都还不错，于是今年又续费了一发配置高一些的，一边挂载博客一边开着VPN。顺手再来一发教程吧。
+先点击这里去官网买吧，注册个账号就可以买了。之前是有最低五美元一年的，便宜到没天理。不过现在最低的是三美元一个月，买一年的话有优惠是19.99美元。用上这个优惠码 IAMSMART5GRNII 可以再便宜一丢丢。支付的话居然有支付宝支付，去年还得用Paypal，感觉这就是面向🇨🇳中国市场的VPS啊。location我一直用的los angel，速度还OK，看YouTube 720p不卡，其他位置我没用过不知道。👇下面这个配置就妥妥的够用了，光开VPN的话我不信你一个月能搞完500G流量。
+10 GB SSD 
+256 MB RAM 
+500 GB Transfer 
+CPU: 1x Intel Xeon 
+BW: 500 GB/mo
+支付完成后会配置一段时间，大概三分钟的样子。
+官网 Client Area登陆后点你名字进入用户界面。
+
+
+然后点进 my services ，这里可以查看管理服务器 。
+
+
+点击KiwiVM Control Panel进入kiwi管理页面。在kiwi左边的列表里面，找到最下面的shadowsocks server，直接一键install，如下图。
+
+
+安装好shadowsocks服务之后就OK了，安卓手机和电脑都可以用了。服务器地址就填你服务器的IP，端口默认443，随机的密码强度很高(也很难打😭)。
+
+
+安卓，windows，OS X 客户端软件请下载 点击这里，越狱了的iPhone iPad也可以去store搜索shadowsocks下载。之后像这样配置就好了。
+
+
+至于没有越狱的iOS系统，只能像下面这样咯。通过ipsec协议搭建VPN吧。quericy Eden*的这篇博文 给出了一键包，那就直接用吧。去kiwiVM里面，打开左边的列表里面的 root shell -interactive，输入：
+wget https://raw.githubusercontent.com/quericy/one-key-ikev2-vpn/master/one-key-ikev2.sh  
+下载到quericy同学写的一键包，然后给它可执行权限并且执行它：
+chmod +x one-key-ikev2.sh
+
+bash one-key-ikev2.sh  
+中途选择vps类型的时候选择openVZ，也就是选项2，其它都一路回车就OK了。
+
+
+到这一步就差不多了，不过用户名密码和PSK都是默认的怎么可以，修改密码和PSK！打开左边的列表里面的 file manager 输入路径 /usr/local/etc ，点击 ipsec.secrets 文件后面的edit，编辑对应内容就可以修改username password和PSK了。
+
+
+当然，也可以在命令行里用vim编辑 ipsec.secrets 文件内容。
+vi /usr/local/etc/ipsec.secrets
+
+: RSA server.pem
+
+: PSK "..."
+// 这里修改你的PSK
+
+: XAUTH "myXAUTHPass"
+
+... %any : EAP "..."
+// 修改你的账户名和密码 %any之前是账户名 EAP之后是密码
+编辑完成之后 :wq 写入并退出vim就OK了。
+iPhone的VPN配置在设置－通用－VPN里面，添加新的VPN即可。那个description就是VPN的名字而已，随便起咯。Psaaword填你的密码，Secret填你的PSK。
+
+这不，开启VPN就可以上twitter了。
+
+如果重启了服务器，用 ipsec start 启动服务就可以了。
+这一次的翻墙教程就到这吧，未尽之处还烦请大家帮忙指正。
+
+*/
+
+Reference: http://toxni.com/bandwagon-vpn/
